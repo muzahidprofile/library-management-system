@@ -3,11 +3,15 @@ package com.example.librarymanagementsystem.entity;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.JoinColumn;
 
 import lombok.Data;
@@ -27,7 +31,8 @@ public class User {
 	private boolean enabled;
 	private boolean tokenExpired;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	
 	private Collection<Role> roles;
 }

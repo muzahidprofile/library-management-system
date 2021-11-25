@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and();
 
         // Set unauthorized requests exception handler
-        http = http
+       /* http = http
             .exceptionHandling()
             .authenticationEntryPoint(
                 (request, response, ex) -> {
@@ -70,16 +70,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 }
             )
             .and();
-        
-        
+        */
+       
         http.authorizeRequests().antMatchers("/authenticate").permitAll().and();
-		http.formLogin().loginPage("/login").and().httpBasic().and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/librarymanagement/api/v1/users/**").hasRole("USER")
-				.antMatchers(HttpMethod.GET, "/librarymanagement/api/v1/users/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.POST, "/librarymanagement/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.PUT, "/librarymanagement/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.PATCH, "/librarymanagement/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/librarymanagement/**").hasRole("ADMIN");
+		http.authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/v1/users/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/v1/users/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.PATCH, "/api/v1/users/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN");
 
 		// Add JWT token filter
         http.addFilterBefore(

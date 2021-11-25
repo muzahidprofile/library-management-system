@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(force = true) // all final fields are initialized with 0 / false / null
 @RequiredArgsConstructor(onConstructor=@__({@NotNull}))
 @Entity
-public class Role {
+public class Role implements GrantedAuthority {
  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,5 +39,10 @@ public class Role {
           name = "role_id", referencedColumnName = "id"), 
         inverseJoinColumns = @JoinColumn(
           name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;   
+    private Collection<Privilege> privileges;
+
+	@Override
+	public String getAuthority() {
+		return this.name;
+	}   
 }
