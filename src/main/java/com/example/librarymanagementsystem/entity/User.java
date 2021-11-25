@@ -2,7 +2,6 @@ package com.example.librarymanagementsystem.entity;
 
 import java.util.Collection;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

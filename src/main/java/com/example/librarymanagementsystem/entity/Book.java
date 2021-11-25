@@ -23,12 +23,8 @@ public class Book {
 
 	private String title;
 
-	private String email;
-	private String username;
-	private String password;
-	private boolean enabled;
-	private boolean tokenExpired;
-
+	private String description;
+	
 	@ManyToMany
 	@JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
 	private List<Author> authors;
